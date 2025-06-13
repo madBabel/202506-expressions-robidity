@@ -20,14 +20,14 @@ jobs:
       OVERWRITTEN: 'Overwritten at job level'
     steps:
       - name: "[Debug] Print Debug Info"
-        if: ${{ inputs.debug == 'true' }}
+        if: ${{ inputs.debug }}
         run: |
           echo "Triggered by: ${{ github.event_name }}" 
           echo "Branch: ${{ github.ref }}" 
           echo "Commit SHA: ${{ github.sha }}" 
           echo "Runner OS: ${{ runner.os }}"
       - name: "[Debug] Triggered from Main"
-        if: ${{ inputs.debug == 'true' && github.ref == 'refs/heads/main' }}
+        if: ${{ inputs.debug && github.ref == 'refs/heads/main' }}
         run: |
           echo "Triggered from main branch!"
       - name: "Print Variables"
@@ -62,7 +62,7 @@ jobs:
       - name: "Sleep and Cancel"
         run: sleep 20
       - name: "Failing Step"
-        if: ${{ inputs.fail == 'true' }}
+        if: ${{ inputs.fail }}
         run: exit 1
       - name: "Conditional Step - Success"
         if : ${{ success() }}
